@@ -60,5 +60,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>このアプリは、画像の投稿及び編集のため、カメラの使用許可を求めております。</string>
 </dict>
 </plist>
