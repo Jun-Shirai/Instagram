@@ -44,13 +44,7 @@ class PostTableViewCell: UITableViewCell {
         self.captionLabel.text = "\(postData.name!) : \(postData.caption!)"
         
         //コメントの表示
-        if postData.comment == nil {
-            self.commentLabel.text = ""
-        }else {
-            self.commentLabel.text = "\(postData.name!) : \(postData.comment!)"
-            
-        }
-        //コメントボタンの動作は別コントローラーで実装
+        self.commentLabel.text = "\(postData.comment.joined(separator: "\n"))"  //←１番目以降のコメントが表示されない
         
         //日時の表示
         self.dateLabel.text = ""

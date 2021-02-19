@@ -137,31 +137,11 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         //配列からタップされたインデックスデータを取得
         let postData = postArray[indexPath!.row]
         
-        //コメント入力画面へモーダル遷移
-        let commentViewController = storyboard!.instantiateViewController(withIdentifier: "CommentEdit")
+        //コメント入力画面へモーダル遷移　＊as!の「!」は取得したデータをより詳しくはっきりさせるためにつかうもの。「?」だとnilの代入を許可するため、その場合、nilが入ってしまった時の条件文を記述する必要になる。
+        let commentViewController = storyboard!.instantiateViewController(withIdentifier: "CommentEdit") as! CommentViewController
+        commentViewController.postData =  postData  //定義したpostDataは、最初は中身のない空箱のため、「.postDta = postData」でpostDataに代入することで、取得したコントローラーにPostDataクラス（投稿データ）を与えることが可能。取得したコントローラー上で、コメント入力の作業ができる。
         present(commentViewController, animated: true, completion: nil)
-        
-        
-        //更新する
-        if let mycommentid = Auth.auth().currentUser?.uid {
-            
-            var commentUpdataValue: FieldValue
-            if postData.iscommented {
-                //すでにコメントしている場合は、別で新しいmycommentidを追加する更新データを作成
-                commentUpdataValue = FieldValue.arrayUnion([mycommentid])
-            }else {
-                //今回初めてコメントする場合は、mycommentidを追加する更新データを作成
-                commentUpdataValue = FieldValue.arrayUnion([mycommentid])
-            }
-            //新たにコメントを入力・追加する場合はmycommentidを追加する更新データを作成
-            //commentUpdataValue = FieldValue.arrayUnion([mycommentid])
-            //commentに更新データを書き込む
-            let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
-            postRef.updateData(["comment": commentUpdataValue])
-            
-        }
-                
-
+      
     }
 
     /*
